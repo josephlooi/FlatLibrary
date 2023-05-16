@@ -19,33 +19,33 @@ namespace FlatEngine.Util
         }
 
 
-        public static double Div2(double a, int pow = -1)
+        public static double Div2(double a, int pow = 1)
         {
-            return Math.ScaleB(a, pow);
+            return Math.ScaleB(a, -pow);
         }
         public static double Mul2(double a, int pow = 1)
         {
             return Math.ScaleB(a, pow);
         }
-        public static float Div2(float a, int pow = -1)
+        public static float Div2(float a, int pow = 1)
         {
-            return MathF.ScaleB(a, pow);
+            return MathF.ScaleB(a, -pow);
         }
         public static float Mul2(float a, int pow = 1)
         {
             return MathF.ScaleB(a, pow);
         }
-        public static FlatVector Div2(FlatVector a, int pow = -1)
+        public static FlatVector Div2(FlatVector a, int pow = 1)
         {
-            return new FlatVector(Math.ScaleB(a.X, pow), Math.ScaleB(a.Y, pow));
+            return new FlatVector(Math.ScaleB(a.X, -pow), Math.ScaleB(a.Y, -pow));
         }
         public static FlatVector Mul2(FlatVector a, int pow = 1)
         {
             return new FlatVector(Math.ScaleB(a.X, pow), Math.ScaleB(a.Y, pow));
         }
-        public static Vector2 Div2(Vector2 a, int pow = -1)
+        public static Vector2 Div2(Vector2 a, int pow = 1)
         {
-            return new Vector2(MathF.ScaleB(a.X, pow), MathF.ScaleB(a.Y, pow));
+            return new Vector2(MathF.ScaleB(a.X, -pow), MathF.ScaleB(a.Y, -pow));
         }
         public static Vector2 Mul2(Vector2 a, int pow = 1)
         {
