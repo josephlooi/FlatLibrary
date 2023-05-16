@@ -42,7 +42,7 @@ namespace FlatTester
         private int totalSampleCount = 0;
 
         public GameTester() : 
-            base(1280, 720, 0.005, 0)
+            base(1920, 1080, 0.005)
         { }
 
         protected override void InitializeGame()
@@ -128,7 +128,7 @@ namespace FlatTester
 
             if (this.world.GetBody(5, out Body body))
             {
-                double force = 47000;
+                double force = 200;
                 if (keyboard.IsKeyDown(Keys.W)) body.ApplyLinearForce(new FlatVector(0, force));
                 if (keyboard.IsKeyDown(Keys.A)) body.ApplyLinearForce(new FlatVector(-force, 0));
                 if (keyboard.IsKeyDown(Keys.S)) body.ApplyLinearForce(new FlatVector(0, -force));
