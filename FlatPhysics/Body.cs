@@ -83,9 +83,12 @@ namespace FlatPhysics
 
 
 
-        public void SetColor(Color? bodyColor, Color? lineColor = null, double lineThickness = 0)
+        public void SetColor(Color? bodyColor)
         {
             this.bodyColor = bodyColor;
+        }
+        public void SetOutline(Color? lineColor, double lineThickness)
+        {
             this.lineColor = lineColor;
             this.lineThickness = lineThickness;
         }

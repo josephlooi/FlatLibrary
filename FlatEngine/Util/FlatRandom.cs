@@ -11,7 +11,6 @@ namespace FlatEngine.Util
         {
             return Rand.Next();
         }
-
         public static int Integer(Random rand)
         {
             return rand.Next();
@@ -86,6 +85,12 @@ namespace FlatEngine.Util
         {
             double angle = Double(rand, 0, FlatMath.PiMul2);
             (x, y) = Math.SinCos(angle);
+        }
+
+
+        public static T Element<T>(T[] array)
+        {
+            return array[FlatRandom.Integer(0, array.Length)];
         }
     }
 }

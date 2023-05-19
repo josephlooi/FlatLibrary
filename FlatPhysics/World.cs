@@ -32,7 +32,7 @@ namespace FlatPhysics
         {
             this.entityList = new List<FlatEntity>();
             this.gravity = FlatVector.Zero;
-            this.worldColor = null;
+            this.worldColor = worldColor;
             this.Width = width;
             this.Height = height;
             this.HalfWidth = FlatMath.Div2(width);
@@ -46,7 +46,8 @@ namespace FlatPhysics
             double totalThickness = thickness + padding;
             this.gravity = new FlatVector(0, -gravity);
             Body ground = new BodyType.Rectangle(this.Width + FlatMath.Mul2(padding), totalThickness, restitution, frictionStatic, frictionDynamic);
-            ground.SetColor(groundColor, lineColor, lineThickness);
+            ground.SetColor(groundColor);
+            ground.SetOutline(lineColor, lineThickness);
             ground.MoveTo(0, thickness - FlatMath.Div2(totalThickness) - this.HalfHeight);
             entityList.Add(ground);
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using FlatEngine;
 using FlatEngine.Util;
@@ -15,12 +16,10 @@ namespace FlatTester
 {
     public class GameTester : FlatGame
     {
-        private readonly Color? worldColor = Color.Gray;//new Color(219, 208, 192);
-        private readonly Color boxColor = new Color(185, 215, 234);
-        private readonly Color triColor = new Color(206, 216, 158);
-        private readonly Color radColor = new Color(255, 219, 164);
-        private readonly Color staticColor = new Color(239, 159, 159);
-        private readonly Color lineColor = Color.Black;
+        private readonly Color? worldColor = new Color(29, 78, 137);
+        private readonly Color  wallColor = new Color(247, 146, 86);
+        private readonly Color[] shapeColorArray = { new Color(249, 178, 124), new Color(251, 209, 162), new Color(125, 207, 182), new Color(0, 178, 202) };
+        private readonly Color  lineColor = Color.Black;
         private readonly double lineThickness = 0.01;
 
         private const int iterationCount = 8; // virtual fps, how many updates per frame
@@ -33,23 +32,23 @@ namespace FlatTester
         private Color fontColor = Color.White;
         private Stopwatch stopwatch = new Stopwatch();
         private Stopwatch sampleTimer = new Stopwatch();
-        private double timerUpdateTime = 0.1d;
-        private double totalWorldStepTime = 0d;
+        private double timerUpdateTime = 0.1;
+        private double totalWorldStepTime = 0;
         private string worldUPSString = string.Empty;
         private string worldStepTimeString = string.Empty;
         private string bodyCountString = string.Empty;
         private int totalBodyCount = 0;
         private int totalSampleCount = 0;
 
-        public GameTester() : 
+        public GameTester() :
             base(1920, 1080, 0.005)
         { }
 
         protected override void InitializeGame()
         {
             this.camera.GetExtents(out double viewportWidth, out double viewportHeight);
-            this.world = new World(viewportWidth, viewportHeight, null);
-            this.world.SetGround(Gravity.Earth, 0.1, 0.5, 0.6, 0.4, this.staticColor, this.lineColor, this.lineThickness);
+            this.world = new World(viewportWidth, viewportHeight, this.worldColor);
+            this.world.SetGround(Gravity.Earth, 0.1, 0.5, 0.6, 0.4, this.wallColor, this.lineColor, this.lineThickness);
             this.sampleTimer.Start();
         }
         protected override void LoadContent()
@@ -71,7 +70,8 @@ namespace FlatTester
                 double width = 0.5;
                 double height = 1.8;
                 Body player = new Rectangle(width, height, 0.5, 0.6, 0.4, 60);
-                player.SetColor(this.staticColor, this.lineColor, this.lineThickness);
+                player.SetColor(FlatRandom.Element(this.shapeColorArray));
+                player.SetOutline(this.lineColor, this.lineThickness);
                 player.MoveTo(mouseWorldPosition);
                 this.world.AddEntity(player);
             }
@@ -81,7 +81,8 @@ namespace FlatTester
                 double b = FlatRandom.Double(0.05, 0.5);
                 double c = FlatRandom.Double(0.05, 0.5);
                 Body tri = Triangle.ABC(a, b, c, 0.5, 0.6, 0.4, Triangle.GetMass(a, b, c, 1), true);
-                tri.SetColor(this.triColor, this.lineColor, this.lineThickness);
+                tri.SetColor(FlatRandom.Element(this.shapeColorArray));
+                tri.SetOutline(this.lineColor, this.lineThickness);
                 tri.MoveTo(mouseWorldPosition);
                 this.world.AddEntity(tri);
             }
@@ -90,7 +91,8 @@ namespace FlatTester
                 double width = FlatRandom.Double(0.1, 0.5);
                 double height = FlatRandom.Double(0.1, 0.5);
                 Body box = new Rectangle(width, height, 0.5, 0.6, 0.4, Rectangle.GetMass(width, height, 1), false);
-                box.SetColor(this.boxColor, this.lineColor, this.lineThickness);
+                box.SetColor(FlatRandom.Element(this.shapeColorArray));
+                box.SetOutline(this.lineColor, this.lineThickness);
                 box.MoveTo(mouseWorldPosition);
                 this.world.AddEntity(box);
             }
@@ -100,11 +102,12 @@ namespace FlatTester
                 {
                     double x = FlatRandom.Double(-this.world.HalfWidth, this.world.HalfWidth);
                     double y = FlatRandom.Double(-this.world.HalfHeight, this.world.HalfHeight);
-                    double radius = FlatRandom.Double(0.01, 0.1);
-                    Body balls = new Circle(radius, 0.5, 0.5, 0.5, 0.1, false);
-                    balls.SetColor(FlatRandom.Color(), null);
-                    balls.MoveTo(x, y);
-                    this.world.AddEntity(balls);
+                    double radius = FlatRandom.Double(0.05, 0.2);
+                    Body ball = new Circle(radius, 0.5, 0.5, 0.5, 0.1, false);
+                    ball.SetColor(FlatRandom.Element(this.shapeColorArray));
+                    ball.SetOutline(this.lineColor, this.lineThickness);
+                    ball.MoveTo(x, y);
+                    this.world.AddEntity(ball);
                 }
             }
             double camSpeed = this.camera.Zoom * 10;
