@@ -3,7 +3,7 @@ using System;
 
 namespace FlatEngine.Util
 {
-    public class FlatMath
+    public static class FlatMath
     {
         public const double MinAccuracy = 0.000000015; // 15 nanometers
         public const double Pi     = 3.14159265358979323846264338327950288419716939937510582;
@@ -50,6 +50,16 @@ namespace FlatEngine.Util
         public static Vector2 Mul2(Vector2 a, int pow = 1)
         {
             return new Vector2(MathF.ScaleB(a.X, pow), MathF.ScaleB(a.Y, pow));
+        }
+
+
+        public static double MulAdd(double a, double b, double c)
+        {
+            return Math.FusedMultiplyAdd(a, b, c);
+        }
+        public static double AddSquaresOf(double a, double b)
+        {
+            return Math.FusedMultiplyAdd(a, a, b*b);
         }
     }
 }

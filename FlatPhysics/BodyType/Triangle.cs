@@ -181,8 +181,8 @@ namespace FlatPhysics.BodyType
         }
         private static double GetAngle(double a, double b, double c)
         {
-            double bc = Math.FusedMultiplyAdd(b, b, c * c);
-            double bca = Math.FusedMultiplyAdd(a, -a, bc);
+            double bc = FlatMath.AddSquaresOf(b, c);
+            double bca = FlatMath.MulAdd(a, -a, bc);
             return Math.Acos(bca / (2 * b * c)); // cosine rule
         }
         private static double GetAngle(double height, double heightDepth)
@@ -195,22 +195,22 @@ namespace FlatPhysics.BodyType
         }
         private static double GetInertia(double a, double b, double c, double mass)
         {
-            double ab = Math.FusedMultiplyAdd(a, a, b * b);
-            double abc = Math.FusedMultiplyAdd(c, c, ab);
+            double ab = FlatMath.AddSquaresOf(a, b);
+            double abc = FlatMath.MulAdd(c, c, ab);
             return mass * abc / 36;
         }
         private static void BH0toABC(double @base, double height, double angle, out double a, out double c, out double heightDepth)
         {
             heightDepth = Triangle.GetHeightDepth(height, angle);
             double b_ = @base - heightDepth;
-            a = Math.Sqrt(Math.FusedMultiplyAdd(b_, b_, height * height));
+            a = Math.Sqrt(FlatMath.AddSquaresOf(b_, height));
             c = height / Math.Sin(angle);
         }
         private static void BHDtoABC(double @base, double height, double heightDepth, out double a, out double c, out double angle)
         {
             double b_ = @base - heightDepth;
             angle = Triangle.GetAngle(height, heightDepth);
-            a = Math.Sqrt(Math.FusedMultiplyAdd(b_, b_, height * height));
+            a = Math.Sqrt(FlatMath.AddSquaresOf(b_, height));
             c = height / Math.Sin(angle);
         }
     }

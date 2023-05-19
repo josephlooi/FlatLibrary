@@ -265,8 +265,8 @@ namespace FlatEngine.Graphics
 
             for (int i = 0; i < vertexCount; i++)
             {
-                double bx = Math.FusedMultiplyAdd(cos, ax, -sin * ay);
-                double by = Math.FusedMultiplyAdd(sin, ax,  cos * ay);
+                double bx = FlatMath.MulAdd(cos, ax, -sin * ay);
+                double by = FlatMath.MulAdd(sin, ax,  cos * ay);
 
                 this.DrawLine(ax + x, ay + y, bx + x, by + y, thickness, color);
 
@@ -301,8 +301,8 @@ namespace FlatEngine.Graphics
 
                 this.vertices[this.vertexCount++] = new Vertex(new Vector3((float)(x2 + x), (float)(y2 + y), 0f), color);
 
-                x1 = Math.FusedMultiplyAdd(cos, x2, -sin * y2);
-                y1 = Math.FusedMultiplyAdd(sin, x2,  cos * y2);
+                x1 = FlatMath.MulAdd(cos, x2, -sin * y2);
+                y1 = FlatMath.MulAdd(sin, x2,  cos * y2);
             }
             shapeCount++;
         }
@@ -345,7 +345,7 @@ namespace FlatEngine.Graphics
             {
                 FlatVector a = vertices[i];
                 FlatVector b = vertices[(i + 1) % vertices.Length];
-                totalArea = Math.FusedMultiplyAdd(b.X - a.X, b.Y + a.Y, totalArea);
+                totalArea = FlatMath.MulAdd(b.X - a.X, b.Y + a.Y, totalArea);
             }
             return FlatMath.Div2(Math.Abs(totalArea));
         }

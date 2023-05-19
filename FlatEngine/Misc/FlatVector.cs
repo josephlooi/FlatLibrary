@@ -58,14 +58,14 @@ public readonly struct FlatVector
     /// </summary>
     public static double operator *(FlatVector a, FlatVector b)
     {
-        return Math.FusedMultiplyAdd(a.X, b.X, a.Y * b.Y);
+        return FlatMath.MulAdd(a.X, b.X, a.Y * b.Y);
     }
     /// <summary>
     /// Cross Product
     /// </summary>
     public static double operator /(FlatVector a, FlatVector b)
     {
-        return Math.FusedMultiplyAdd(a.X, b.Y, -a.Y * b.X);
+        return FlatMath.MulAdd(a.X, b.Y, -a.Y * b.X);
     }
     /// <summary>
     /// Vector Inverse Scaling
@@ -117,8 +117,8 @@ public readonly struct FlatVector
     public FlatVector Transform(FlatTransform t)
     {
         return new FlatVector(
-            Math.FusedMultiplyAdd(this.X, t.CosScale.X, -this.Y * t.SinScale.Y) + t.Position.X,
-            Math.FusedMultiplyAdd(this.X, t.SinScale.X, this.Y * t.CosScale.Y) + t.Position.Y);
+            FlatMath.MulAdd(this.X, t.CosScale.X, -this.Y * t.SinScale.Y) + t.Position.X,
+            FlatMath.MulAdd(this.X, t.SinScale.X,  this.Y * t.CosScale.Y) + t.Position.Y );
     }
     public FlatVector Project(FlatVector p)
     {
@@ -150,7 +150,7 @@ public readonly struct FlatVector
     }
     public double LengthSquared()
     {
-        return Math.FusedMultiplyAdd(this.X, this.X, this.Y * this.Y);
+        return FlatMath.AddSquaresOf(this.X,this.Y);
     }
     public static double Distance(FlatVector a, FlatVector b)
     {
@@ -160,7 +160,7 @@ public readonly struct FlatVector
     {
         double dx = a.X - b.X;
         double dy = a.Y - b.Y;
-        return Math.FusedMultiplyAdd(dx, dx, dy * dy);
+        return FlatMath.AddSquaresOf(dx, dy);
     }
 
 
