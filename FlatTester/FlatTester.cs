@@ -161,7 +161,7 @@ namespace FlatTester
         }
         protected override void DrawGame()
         {
-            this.world.Draw(this.sprites, this.shapes, this.camera, this.worldColor);
+            this.world.Draw(this.sprites, this.shapes, this.camera);
             this.HUD.Draw(this.sprites);
         }
     }

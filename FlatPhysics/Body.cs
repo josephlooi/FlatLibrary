@@ -75,8 +75,8 @@ namespace FlatPhysics
         internal virtual void Draw(Shapes shapes, Camera camera)
         {
             if (!camera.ViewportContains(this.AABB)) return;
-            if (this.bodyColor is not null) this.DrawBody(shapes);
-            if (this.lineThickness != 0 && this.lineColor != null) this.DrawOutline(shapes);
+            if (this.bodyColor != null) this.DrawBody(shapes);
+            if (this.lineThickness != 0 || this.lineColor != null) this.DrawOutline(shapes);
         }
         protected abstract void DrawBody(Shapes shapes);
         protected abstract void DrawOutline(Shapes shapes);

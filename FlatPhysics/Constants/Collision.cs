@@ -7,8 +7,8 @@ namespace FlatPhysics.Constants
 {
     internal static class Collision
     {
-        private static FlatVector[] contactList = new FlatVector[2];
-        private static double[] magnitudeList = new double[2];
+        private readonly static FlatVector[] contactList = new FlatVector[2];
+        private readonly static double[] magnitudeList = new double[2];
         private static double magnitude;
 
         internal static bool IsColliding(
