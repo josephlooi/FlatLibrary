@@ -83,14 +83,14 @@ namespace FlatPhysics
 
 
 
-        public void Draw(Sprites sprites, Shapes shapes, Camera camera, Color? worldColor, bool drawHitBox = false)
+        public void Draw(Sprites sprites, Shapes shapes, Camera camera, bool drawHitBox = false)
         {
             this.DrawWorldBox(shapes);
             this.DrawEntities(sprites, shapes, camera, drawHitBox);
         }
         private void DrawWorldBox(Shapes shapes)
         {
-            if (this.worldColor != null) shapes.DrawRectangleFill(-this.HalfWidth, -this.HalfHeight, this.Width, this.Height, worldColor.Value);
+            if (this.worldColor != null) shapes.DrawRectangleFill(-this.HalfWidth, -this.HalfHeight, this.Width, this.Height, this.worldColor.Value);
         }
         private void DrawEntities(Sprites sprites, Shapes shapes, Camera camera, bool drawHitBox)
         {
