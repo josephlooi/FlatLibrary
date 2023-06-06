@@ -59,7 +59,11 @@ namespace FlatEngine.Util
         }
         public static double AddSquaresOf(double a, double b)
         {
-            return Math.FusedMultiplyAdd(a, a, b*b);
+            return Math.FusedMultiplyAdd(a, a, b * b);
+        }
+        public static double SubtractSquaresOf(double a, double b)
+        {
+            return Math.FusedMultiplyAdd(a, a, -(b * b));
         }
     }
 }

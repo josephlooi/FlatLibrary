@@ -36,7 +36,7 @@ namespace FlatPhysics.BodyType
         protected override void SetVertices()
         {
             double halfBase = FlatMath.Div2(this.length);
-            double halfHeight = FlatMath.Div2(Math.Sqrt(this.length * this.length - halfBase * halfBase));
+            double halfHeight = FlatMath.Div2(Math.Sqrt(FlatMath.SubtractSquaresOf(this.length, halfBase)))r;
             this.vertices[0] = new FlatVector(halfBase, -halfHeight);
             this.vertices[1] = new FlatVector(-halfBase, -halfHeight);
             this.vertices[2] = new FlatVector(0, halfHeight);
