@@ -25,7 +25,7 @@ namespace FlatPhysics.BodyType
             this.TransformedVertices = new FlatVector[this.vertices.Length];
         }
         /// <summary>Dynamic polygon</summary>
-        protected Polygon(FlatVector[] vertices, double restitution, double frictionStatic, double frictionDynamic, double mass, double inertia, bool isPositionStatic) :
+        protected Polygon(FlatVector[] vertices, double restitution, double frictionStatic, double frictionDynamic, double mass, double inertia, bool isPositionStatic = false) :
             base(restitution, frictionStatic, frictionDynamic, mass, inertia, isPositionStatic)
         {
             this.vertices = vertices;

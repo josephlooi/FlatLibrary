@@ -27,7 +27,7 @@ namespace FlatPhysics.BodyType
             this.SetVertices();
         }
         /// <summary>Dynamic Rectangle</summary>
-        public Rectangle(double width, double height, double restitution, double frictionStatic, double frictionDynamic, double mass, bool isPositionStatic) :
+        public Rectangle(double width, double height, double restitution, double frictionStatic, double frictionDynamic, double mass, bool isPositionStatic = false) :
             base(new FlatVector[4], restitution, frictionStatic, frictionDynamic, mass, mass * FlatMath.AddSquaresOf(width, height) / 12, isPositionStatic)
         {
             this.width = width;

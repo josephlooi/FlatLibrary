@@ -22,7 +22,7 @@ namespace FlatPhysics.BodyType
             this.Radius = radius;
         }
         /// <summary>Dynamic Circle</summary>
-        public Circle(double radius, double restitution, double frictionStatic, double frictionDynamic, double mass, bool isPositionStatic) : 
+        public Circle(double radius, double restitution, double frictionStatic, double frictionDynamic, double mass, bool isPositionStatic = false) : 
             base(restitution, frictionStatic, frictionDynamic, mass, FlatMath.Div2(radius * radius * mass), isPositionStatic)
         {
             this.Radius = radius;

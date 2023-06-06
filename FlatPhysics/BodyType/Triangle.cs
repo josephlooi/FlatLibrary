@@ -19,7 +19,7 @@ namespace FlatPhysics.BodyType
         private Triangle(double restitution, double frictionStatic, double frictionDynamic, double mass) :
            base(new FlatVector[3], restitution, frictionStatic, frictionDynamic, mass)
         { }
-        private Triangle(double restitution, double frictionStatic, double frictionDynamic, double mass, double inertia, bool isPositionStatic) :
+        private Triangle(double restitution, double frictionStatic, double frictionDynamic, double mass, double inertia, bool isPositionStatic = false) :
             base(new FlatVector[3], restitution, frictionStatic, frictionDynamic, mass, inertia, isPositionStatic)
         { }
 
@@ -48,7 +48,7 @@ namespace FlatPhysics.BodyType
             return tri;
         }
         /// <summary> Dynamic ABC </summary>
-        public static Triangle ABC(double a, double b, double c, double restitution, double frictionStatic, double frictionDynamic, double mass, bool isPositionStatic)
+        public static Triangle ABC(double a, double b, double c, double restitution, double frictionStatic, double frictionDynamic, double mass, bool isPositionStatic = false)
         {
             double inertia = Triangle.GetInertia(a, b, c, mass);
             Triangle tri = new Triangle(restitution, frictionStatic, frictionDynamic, mass, inertia, isPositionStatic);
@@ -87,7 +87,7 @@ namespace FlatPhysics.BodyType
             return tri;
         }
         /// <summary> Dynamic BH0 </summary>
-        public static Triangle BH0(double @base, double height, double angle, double restitution, double frictionStatic, double frictionDynamic, double mass, bool isPositionStatic)
+        public static Triangle BH0(double @base, double height, double angle, double restitution, double frictionStatic, double frictionDynamic, double mass, bool isPositionStatic = false)
         {
             Triangle.BH0toABC(@base, height, angle, out double a, out double c, out double heightDepth);
             double inertia = Triangle.GetInertia(a, @base, c, mass);
@@ -128,7 +128,7 @@ namespace FlatPhysics.BodyType
             return tri;
         }
         /// <summary> Dynamic BHD </summary>
-        public static Triangle BHD(double @base, double height, double heightDepth, double restitution, double frictionStatic, double frictionDynamic, double mass, bool isPositionStatic)
+        public static Triangle BHD(double @base, double height, double heightDepth, double restitution, double frictionStatic, double frictionDynamic, double mass, bool isPositionStatic = false)
         {
             Triangle.BHDtoABC(@base, height, heightDepth, out double a, out double c, out double angle);
             double inertia = Triangle.GetInertia(a, @base, c, mass);

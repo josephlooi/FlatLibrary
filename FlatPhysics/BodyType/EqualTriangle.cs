@@ -24,7 +24,7 @@ namespace FlatPhysics.BodyType
             this.SetVertices();
         }
         /// <summary>Dynamic Equal Triangle</summary>
-        public EqualTriangle(double length, double restitution, double frictionStatic, double frictionDynamic, double mass, bool isPositionStatic) :
+        public EqualTriangle(double length, double restitution, double frictionStatic, double frictionDynamic, double mass, bool isPositionStatic = false) :
             base(new FlatVector[3], restitution, frictionStatic, frictionDynamic, mass, mass * length * length / 12, isPositionStatic)
         {
             this.length = length;
