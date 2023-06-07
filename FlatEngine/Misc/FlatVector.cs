@@ -63,7 +63,7 @@ public readonly struct FlatVector
     /// <summary>
     /// Cross Product
     /// </summary>
-    public static double operator /(FlatVector a, FlatVector b)
+    public static double operator ^(FlatVector a, FlatVector b)
     {
         return FlatMath.MulAdd(a.X, b.Y, -a.Y * b.X);
     }
@@ -150,7 +150,7 @@ public readonly struct FlatVector
     }
     public double LengthSquared()
     {
-        return FlatMath.AddSquaresOf(this.X,this.Y);
+        return FlatMath.AddSquaresOf(this.X, this.Y);
     }
     public static double Distance(FlatVector a, FlatVector b)
     {
@@ -158,9 +158,7 @@ public readonly struct FlatVector
     }
     public static double DistanceSquared(FlatVector a, FlatVector b)
     {
-        double dx = a.X - b.X;
-        double dy = a.Y - b.Y;
-        return FlatMath.AddSquaresOf(dx, dy);
+        return FlatMath.AddSquaresOf(a.X - b.X, a.Y - b.Y);
     }
 
 

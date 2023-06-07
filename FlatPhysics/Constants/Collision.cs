@@ -89,7 +89,7 @@ namespace FlatPhysics.Constants
         private static void ResolveIntersection(
             Body bodyA, Body bodyB, FlatVector mtv)
         {
-            if (bodyA.isPositionStatic) bodyB.Move(mtv);
+            if      (bodyA.isPositionStatic) bodyB.Move( mtv);
             else if (bodyB.isPositionStatic) bodyA.Move(-mtv);
             else
             {
