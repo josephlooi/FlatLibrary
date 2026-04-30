@@ -6,7 +6,7 @@ namespace FlatPhysics
 {
     public class Sprite : FlatSprite
     {
-        public Body HitBox { get; private set; }
+        public Body HitBox { get; }
 
         public Sprite(Texture2D texture, double scale, Body hitBox) :
             base(texture, scale, hitBox.isPositionStatic, hitBox.isRotationStatic)

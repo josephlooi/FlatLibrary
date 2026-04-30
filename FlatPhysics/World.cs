@@ -11,8 +11,9 @@ namespace FlatPhysics
 {
     public sealed class World
     {
-        public const int MinIterations = 1;
-        public const int MaxIterations = 64;
+        private const int minIterations = 1;
+        private const int maxIterations = 128;
+        private readonly int iterationCount;
         private Color? worldColor;
 
         private readonly List<FlatEntity> entityList;
@@ -28,8 +29,9 @@ namespace FlatPhysics
         public FlatVector HalfDim { get { return new FlatVector(this.HalfWidth, this.HalfHeight); } }
 
 
-        public World(double width, double height, Color? worldColor)
+        public World(double width, double height, Color? worldColor, int iterationCount)
         {
+            this.iterationCount = FlatTools.Clamp(iterationCount, minIterations, maxIterations);
             this.entityList = new List<FlatEntity>();
             this.gravity = FlatVector.Zero;
             this.worldColor = worldColor;
@@ -50,11 +52,12 @@ namespace FlatPhysics
             ground.SetOutline(lineColor, lineThickness);
             ground.MoveTo(0, thickness - FlatMath.Div2(totalThickness) - this.HalfHeight);
             entityList.Add(ground);
+            this.HasGround = true;
         }
-        public void Update(double time, int iterationCount)
+        public void Update(double time)
         {
-            iterationCount = FlatTools.Clamp(iterationCount, MinIterations, MaxIterations);
-            for (int i = 0; i < iterationCount; i++) this.UpdateEntities(time / iterationCount);
+            double iterationTime = time / this.iterationCount;
+            for (int i = 0; i < this.iterationCount; i++) this.UpdateEntities(iterationTime);
         }
         private void UpdateCollision(Body bodyA, int i)
         {
@@ -75,10 +78,14 @@ namespace FlatPhysics
             {
                 FlatEntity entity = this.entityList[i];
                 entity.Update(time);
-                entity.LinearAccelerate(this.gravity * time);
-                this.VoidWorldBorder(entity);
+                this.GravitateEntity(time, entity);
                 this.UpdateCollision(World.GetBody(entity), i);
+                this.VoidWorldBorder(entity);
             }
+        }
+        private void GravitateEntity(double time, FlatEntity entity)
+        {
+            entity.LinearAccelerate(this.gravity * time);
         }
 
 

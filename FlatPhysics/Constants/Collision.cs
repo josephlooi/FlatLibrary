@@ -96,18 +96,6 @@ namespace FlatPhysics.Constants
                 FlatVector halfMtv = FlatMath.Div2(mtv);
                 bodyA.Move(-halfMtv);
                 bodyB.Move(halfMtv);
-                //if (bodyA.Mass == bodyB.Mass)
-                //{
-                //    FlatVector halfMtv = FlatMath.Div2(mtv);
-                //    bodyA.Move(-halfMtv);
-                //    bodyB.Move(halfMtv);
-                //}
-                //else
-                //{
-                //    double sumMass = bodyA.Mass + bodyB.Mass;
-                //    bodyA.Move(-mtv * bodyB.Mass / sumMass);
-                //    bodyB.Move(mtv * bodyA.Mass / sumMass);
-                //}
             }
         }
 
@@ -379,7 +367,7 @@ namespace FlatPhysics.Constants
             return true;
         }
         private static int GetContactPoints(
-            FlatVector[] verticesA, FlatVector[] verticesB, 
+            FlatVector[] verticesA, FlatVector[] verticesB,
             out FlatVector contact1, out FlatVector contact2)
         {
             contact1 = FlatVector.Zero;
@@ -400,8 +388,8 @@ namespace FlatPhysics.Constants
 
                     if (distanceSq == minDistanceSq)
                     {
-                        if (closestPoint == contact1 || 
-                            closestPoint == contact2) continue;
+                        if (closestPoint % contact1 || 
+                            closestPoint % contact2) continue;
                         contact2 = closestPoint;
                         contactCount = 2;
                     }
@@ -426,8 +414,8 @@ namespace FlatPhysics.Constants
 
                     if (distanceSq == minDistanceSq)
                     {
-                        if (closestPoint == contact1 ||
-                            closestPoint == contact2) continue;
+                        if (closestPoint % contact1 ||
+                            closestPoint % contact2) continue;
                         contact2 = closestPoint;
                         contactCount = 2;
                     }
@@ -475,7 +463,7 @@ namespace FlatPhysics.Constants
             if (distanceSq == 0)
             {
                 depth = minDistance;
-                normal = new FlatVector(1, 0);
+                normal = FlatVector.Right;
             }
             else
             {
@@ -492,7 +480,7 @@ namespace FlatPhysics.Constants
             return centerA + (centerB - centerA).Unit() * radiusA;
         }
         private static void ProjectVertices(
-            FlatVector center, double radius, FlatVector vector, 
+            FlatVector center, double radius, FlatVector vector,
             out double min, out double max)
         {
             FlatVector directionRadius = vector.Unit() * radius;

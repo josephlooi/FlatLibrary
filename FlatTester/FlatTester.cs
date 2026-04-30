@@ -22,7 +22,7 @@ namespace FlatTester
         private readonly Color  lineColor = Color.Black;
         private readonly double lineThickness = 0.01;
 
-        private const int iterationCount = 8; // virtual fps, how many updates per frame
+        private const int iterationCount = 25; // virtual fps, how many updates per frame
         private World world;
         private FlatHUD HUD;
         private Texture2D tennisBallTexture;
@@ -32,7 +32,7 @@ namespace FlatTester
         private Color fontColor = Color.White;
         private Stopwatch stopwatch = new Stopwatch();
         private Stopwatch sampleTimer = new Stopwatch();
-        private double timerUpdateTime = 0.1;
+        private double timerUpdateTime = 0.5;
         private double totalWorldStepTime = 0;
         private string worldUPSString = string.Empty;
         private string worldStepTimeString = string.Empty;
@@ -47,7 +47,7 @@ namespace FlatTester
         protected override void InitializeGame()
         {
             this.camera.GetExtents(out double viewportWidth, out double viewportHeight);
-            this.world = new World(viewportWidth, viewportHeight, this.worldColor);
+            this.world = new World(viewportWidth, viewportHeight, this.worldColor, GameTester.iterationCount);
             this.world.SetGround(Gravity.Earth, 0.1, 0.5, 0.6, 0.4, this.wallColor, this.lineColor, this.lineThickness);
             this.sampleTimer.Start();
         }
@@ -68,7 +68,7 @@ namespace FlatTester
             if (this.mouse.IsRightReleased())
             {
                 double width = 0.5;
-                double height = 1.8;
+                double height = 0.5;
                 Body player = new Rectangle(width, height, 0.5, 0.6, 0.4, 60);
                 player.SetColor(FlatRandom.Element(this.shapeColorArray));
                 player.SetOutline(this.lineColor, this.lineThickness);
@@ -152,7 +152,7 @@ namespace FlatTester
             }
 
             this.stopwatch.Restart();
-            this.world.Update(this.time, GameTester.iterationCount);
+            this.world.Update(this.time);
             this.HUD.Update(this.worldUPSString, this.worldStepTimeString, this.bodyCountString);
             this.stopwatch.Stop();
             this.totalWorldStepTime += this.stopwatch.Elapsed.TotalMilliseconds;

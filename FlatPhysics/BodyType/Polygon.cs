@@ -77,7 +77,7 @@ namespace FlatPhysics.BodyType
         protected virtual void SetVertices()
         {
             FlatVector adjust = this.Position - Shapes.GetCenter(this.vertices);
-            if (adjust != FlatVector.Zero) for (int i = 0; i < this.vertices.Length; i++) this.vertices[i] += adjust;
+            if (!(adjust % FlatVector.Zero)) for (int i = 0; i < this.vertices.Length; i++) this.vertices[i] += adjust;
         }
 
         public static double GetMass(FlatVector[] vertices, double density)

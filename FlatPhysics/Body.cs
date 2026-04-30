@@ -46,7 +46,7 @@ namespace FlatPhysics
             this.inertia = this.InvInertia = 0;
         }
         /// <summary>Dynamic Body</summary>
-        protected Body(double restitution, double frictionStatic, double frictionDynamic, double mass, double inertia, bool isPositionStatic = false) : 
+        protected Body(double restitution, double frictionStatic, double frictionDynamic, double mass, double inertia, bool isPositionStatic = false) :
             base(isPositionStatic, false)
         {
             this.Restitution = FlatTools.Clamp(restitution, 0, 1);
@@ -106,7 +106,7 @@ namespace FlatPhysics
         public static Body TennisBall(out double radius)
         {
             radius = 0.0343;
-            return new Circle(0.0343, 0.82, 0.6, 0.6, 0.056);
+            return new Circle(radius, 0.82, 0.6, 0.6, 0.056);
         }
         public static Body BasketBall(out double radius)
         {
